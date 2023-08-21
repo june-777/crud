@@ -26,4 +26,15 @@ public class BoardService {
         }
     }
 
+    public void modifyBoard(Long id, String password, String title, String content) {
+        log.info("modifyBoard 호출");
+        Board findBoard = boardRepository.findById(id);
+        log.info("findBoard = {}", findBoard);
+        if (findBoard.getPassword().equals(password)) {
+            boardRepository.update(id, title, content);
+        } else {
+            throw new IllegalStateException("비밀번호가 틀립니다.");
+        }
+    }
+
 }
